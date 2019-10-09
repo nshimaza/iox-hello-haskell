@@ -14,6 +14,9 @@ dist: xenial
 # Do not choose a language; we provide our own build tools.
 language: generic
 
+services:
+  - docker
+
 # Caching so the next build will be fast too.
 cache:
   directories:
@@ -38,3 +41,8 @@ install:
 script:
 # Build the package, its tests, and its docs and run the tests
 - stack --no-terminal test --haddock --no-haddock-deps
+- cp .stack-work/dist/x86_64-osx/Cabal-3.0.0.0/build/iox-hello-haskell-exe/iox-hello-haskell-exe docker/
+- cd docker
+- docker build -t "$DOCKER_USERNAME/iox-hello-haskell" . 
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker push "$DOCKER_USERNAME/iox-hello-haskell"

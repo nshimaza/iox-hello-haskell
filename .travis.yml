@@ -41,7 +41,7 @@ install:
 script:
 # Build the package, its tests, and its docs and run the tests
 - stack --no-terminal test --haddock --no-haddock-deps
-- cp .stack-work/dist/x86_64-osx/Cabal-3.0.0.0/build/iox-hello-haskell-exe/iox-hello-haskell-exe docker/
+- cp .stack-work/dist/x86_64-linux/Cabal-3.0.0.0/build/iox-hello-haskell-exe/iox-hello-haskell-exe docker/
 - cd docker
 - docker build -t "$DOCKER_USERNAME/iox-hello-haskell" . 
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
